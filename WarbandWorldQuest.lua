@@ -24,6 +24,7 @@ function WarbandWorldQuest:Init()
 	WorldQuestList:Load(self.db.quests, self.db.resetStartTime)
 	self.WorldQuestList = WorldQuestList
 
+	self.character:RefreshInfo()
 	self.character:CleanupRewards(WorldQuestList:GetAllQuests())
 
 	self.dataProvider = self:CreateDataProvider()

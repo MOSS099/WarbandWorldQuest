@@ -24,15 +24,9 @@ function Character:New(o)
 end
 
 function Character:_Init()
-	local _localizedClassName, classFile, _classID = UnitClass("player")
-	local _englishFactionName, localizedFactionName = UnitFactionGroup("player")
+	self:RefreshInfo()
 
-	self.name = UnitName("player")
 	self.GUID = UnitGUID("player")
-	self.realmName = GetRealmName()
-	self.level = UnitLevel("player")
-	self.factionName = localizedFactionName
-	self.class = classFile
 	self.rewards = {}
 	self.updatedAt = GetServerTime()
 
@@ -84,6 +78,14 @@ function Character:SetQuests(quests)
 	end)
 
 	Util:Debug("Quests to update:", #Character.Quests, #quests)
+end
+
+function Character:RefreshInfo()
+	self.name = UnitName("player")
+	self.realmName = GetRealmName()
+	self.level = UnitLevel("player")
+	self.factionName = select(2, UnitFactionGroup("player"))
+	self.class = select(2, UnitClass("player"))
 end
 
 function Character:Update()
